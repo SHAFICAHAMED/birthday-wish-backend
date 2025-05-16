@@ -10,8 +10,10 @@ const User = require("./models/User");
 
 const app = express();
 app.use(cors({
-  origin: '*' // or '*' for all origins (not recommended for production)
+  origin: 'http://localhost:4200', // allow Angular dev server
+  credentials: true // optional: only if you use cookies or auth headers
 }));
+
 app.use(bodyParser.json());
 
 
