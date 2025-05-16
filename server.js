@@ -15,18 +15,24 @@ app.use(cors({
 }));
 
 app.use(bodyParser.json());
-
+uri='mongodb+srv://shafic:1111@cluster0.nkqmbrr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 
 // DB connection
 // mongoose.connect("mongodb://localhost:27017/birthdayApp")
 //   .then(() => console.log("✅ MongoDB connected"))
 //   .catch(err => console.error("❌ MongoDB connection error:", err));
-mongoose.connect('mongodb+srv://shafic:1111@cluster0.nkqmbrr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',{
-    useNewUrlParser: true, 
-    useUnifiedTopology: true,
-    tls: true,
-    family: 4,
+// mongoose.connect('mongodb+srv://shafic:1111@cluster0.nkqmbrr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',{
+//     useNewUrlParser: true, 
+//     useUnifiedTopology: true,
+//     tls: true,
+//     family: 4,
+// })
+mongoose.connect(uri, {
+  ssl: true,
+  sslValidate: true,
+  tlsAllowInvalidCertificates: false,
 })
+
 
 // Routes
 app.post('/api/users', async (req, res) => {
