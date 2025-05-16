@@ -22,6 +22,7 @@ app.use(bodyParser.json());
 mongoose.connect('mongodb+srv://shafic:1111@cluster0.nkqmbrr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',{
     useNewUrlParser: true, 
     useUnifiedTopology: true,
+    tls: true,
     family: 4,
 })
 
