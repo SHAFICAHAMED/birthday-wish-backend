@@ -87,8 +87,19 @@ cron.schedule('0 0 * * *', async () => {
             const mailOptions = {
                 from: process.env.EMAIL_USER,
                 to: user.email,
-                subject: 'Happy Birthday!',
-                text: `Happy Birthday ${user.name}! 🎉`,
+                subject: '🎉 Wishing You the Happiest Birthday!!',
+                text: `Dear ${user.name},\n
+Wishing you a day filled with love, laughter, and everything that makes you smile. 🎂✨
+
+May your birthday be as amazing as you are, and may the year ahead bring you endless joy, success, and beautiful memories. 💫
+
+You’re not just a year older, but a year wiser and more wonderful! 💖
+
+Have a fantastic birthday celebration! 🎈🎁
+
+With warm wishes,
+Your Shafic 🎉
+    `,
             };
 
             transporter.sendMail(mailOptions, (error, info) => {
