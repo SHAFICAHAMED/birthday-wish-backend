@@ -46,6 +46,26 @@ app.get('/api/users', async (req, res) => {
     const users = await User.find();
     res.json(users);
 });
+// Update user by ID
+app.put('/api/users/:id', async (req, res) => {
+    const { name, email, birthday } = req.body;
+    try {
+        const user = await User.findByIdAndUpdate(req.params.id, { name, email, birthday }, { new: true });
+        res.json(user);
+    } catch (err) {
+        res.status(500).json({ error: 'Update failed' });
+    }
+});
+// Delete user by ID
+app.delete('/api/users/:id', async (req, res) => {
+    try {
+        await User.findByIdAndDelete(req.params.id);
+        res.json({ message: 'User deleted' });
+    } catch (err) {
+        res.status(500).json({ error: 'Delete failed' });
+    }
+});
+
 
 // Email setup
 const transporter = nodemailer.createTransport({
