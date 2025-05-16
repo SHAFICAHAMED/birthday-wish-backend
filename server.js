@@ -12,6 +12,9 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+app.use(cors({
+  origin: 'http://localhost:4200'
+}));
 // DB connection
 // mongoose.connect("mongodb://localhost:27017/birthdayApp")
 //   .then(() => console.log("✅ MongoDB connected"))
