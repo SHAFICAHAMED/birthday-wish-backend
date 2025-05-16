@@ -56,8 +56,8 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-// Cron Job: every day at 9 AM
-cron.schedule('* * * * *', async () => {
+// Cron Job: every day at 12 AM
+cron.schedule('0 0 * * *', async () => {
     const today = new Date();
     const users = await User.find();
 
