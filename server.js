@@ -10,7 +10,7 @@ const User = require("./models/User");
 
 const app = express();
 app.use(cors({
-  origin: 'http://localhost:4200', // allow Angular dev server
+ origin: ['http://localhost:4200', 'https://poetic-kashata-afaf70.netlify.app'],
   credentials: true // optional: only if you use cookies or auth headers
 }));
 
