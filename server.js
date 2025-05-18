@@ -92,7 +92,7 @@ service: 'gmail', auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_
 
 // Cron Job: every day at 12 AM
 
-cron.schedule('* * * * *', async () => {
+cron.schedule('0 0 * * *', async () => {
 
 const today = new Date(); const users = await User.find(); users.forEach(user => { const birthDate = new Date(user.birthday); if (birthDate.getDate() === today.getDate() && birthDate.getMonth() === today.getMonth()) { const mailOptions = { from: process.env.EMAIL_USER, to: user.email, subject: '🎉 Wishing You the Happiest Birthday!!', text: `Dear ${user.name},\n 
 
@@ -109,7 +109,7 @@ With warm wishes,
 Your Shafic 🎉
 
 `, }; transporter.sendMail(mailOptions, (error, info) => { if (error) console.log("❌ Email error:", error); else console.log("✅ Email sent:", info.response); }); } }); 
-
+console.log(user.name);
 });
 
 app.listen(3000, () => console.log("🚀 Server running on port: 3000"));
