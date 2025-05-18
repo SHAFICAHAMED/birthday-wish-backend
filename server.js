@@ -3,7 +3,8 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const nodemailer = require("nodemailer");
-const cron = require("node-cron");
+const { CronJob } = require("cron");
+const fetch = require("node-fetch");
 require("dotenv").config();
 
 const User = require("./models/User");
@@ -68,18 +69,19 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Cron job to run at 12 AM every day in Asia/Kolkata
-cron.schedule('0 0 * * *', async () => {
-  console.log("⏰ Cron running at:", new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }));
+// Cron job at 12 AM IST
+const job = new CronJob('0 0 * * *', async () => {
+  const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+  console.log("⏰ Cron running at:", now.toLocaleString());
 
-  const today = new Date().toLocaleDateString('en-CA', { timeZone: "Asia/Kolkata" }); // YYYY-MM-DD
   const users = await User.find();
-
   users.forEach(user => {
-    const birthDate = new Date(user.birthday).toLocaleDateString('en-CA', { timeZone: "Asia/Kolkata" }).slice(5); // MM-DD
-    const todayDate = today.slice(5); // MM-DD
+    const birth = new Date(user.birthday);
+    const birthMonthDay = `${(birth.getMonth() + 1).toString().padStart(2, '0')}-${birth.getDate().toString().padStart(2, '0')}`;
+    const nowMonthDay = `${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`;
 
-    if (birthDate === todayDate) {
+    console.log(`Checking ${user.name}: ${birthMonthDay} === ${nowMonthDay}`);
+    if (birthMonthDay === nowMonthDay) {
       const mailOptions = {
         from: process.env.EMAIL_USER,
         to: user.email,
@@ -107,8 +109,15 @@ Your Shafic 🎉
       });
     }
   });
-}, {
-  timezone: "Asia/Kolkata"
-});
+}, null, true, 'Asia/Kolkata');
+
+job.start();
+
+// Keep Render app awake (Free tier workaround)
+setInterval(() => {
+  fetch("https://your-api-name.onrender.com")
+    .then(() => console.log("🌐 Self-ping to keep alive"))
+    .catch(err => console.log("Ping error", err));
+}, 14 * 60 * 1000); // every 14 minutes
 
 app.listen(3000, () => console.log("🚀 Server running on port 3000"));
