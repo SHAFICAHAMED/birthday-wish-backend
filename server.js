@@ -108,8 +108,8 @@ With warm wishes,
 
 Your Shafic 🎉
 
-`, }; transporter.sendMail(mailOptions, (error, info) => { if (error) console.log("❌ Email error:", error); else console.log("✅ Email sent:", info.response); }); } }); 
-console.log(user.name);
+`, }; transporter.sendMail(mailOptions, (error, info) => { if (error) console.log("❌ Email error:", error); else console.log("✅ Email sent:", info.response,user.name); }); } }); 
+
 });
 
 app.listen(3000, () => console.log("🚀 Server running on port: 3000"));
