@@ -70,7 +70,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // Cron job at 12 AM IST
-const job = new CronJob('0 0 * * *', async () => {
+const job = new CronJob('* * * * *', async () => {
   const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
   console.log("⏰ Cron running at:", now.toLocaleString());
 
