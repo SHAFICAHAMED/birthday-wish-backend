@@ -93,7 +93,7 @@ service: 'gmail', auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_
 // Cron Job: every day at 12 AM
 
 
-cron.schedule('* * * * *', async () => {
+cron.schedule('@midnight', async () => {
 console.log("Cron running at:", new Date().toLocaleString());
 const today = new Date(); const users = await User.find(); users.forEach(user => { const birthDate = new Date(user.birthday); if (birthDate.getDate() === today.getDate() && birthDate.getMonth() === today.getMonth()) { const mailOptions = { from: process.env.EMAIL_USER, to: user.email, subject: '🎉 Wishing You the Happiest Birthday!!', text: `Dear ${user.name},\n 
 
