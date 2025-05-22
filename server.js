@@ -93,7 +93,7 @@ service: 'gmail', auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_
 
 cron.schedule('* * * * *', async () => {
   console.log("Cron running at:", new Date().toLocaleString());
-}
+});
 
 // Cron Job: every day at 12 AM
 
