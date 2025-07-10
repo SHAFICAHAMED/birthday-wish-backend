@@ -118,5 +118,30 @@ Your Shafic 🎉
 
 });
 
+app.post('/api/sendWish', async (req, res) => {
+  const today = new Date();
+  const users = await User.find();
+  
+  users.forEach(user => {
+    const birthDate = new Date(user.birthday);
+    if (birthDate.getDate() === today.getDate() && birthDate.getMonth() === today.getMonth()) {
+      const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: user.email,
+        subject: '🎉 Wishing You the Happiest Birthday!!',
+        text: `Dear ${user.name},\n\nWishing you a wonderful birthday!\n\nFrom,\nYour Shafic ❤️`
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) console.log("❌ Email error:", error);
+        else console.log("✅ Email sent:", info.response, user.name);
+      });
+    }
+  });
+
+  res.json({ message: "Wishes sent (if any birthdays matched)." });
+});
+
+
 app.listen(3000, () => console.log("🚀 Server running on port: 3000"));
 
