@@ -121,7 +121,7 @@ Your Shafic 🎉
 app.post('/api/sendWish', async (req, res) => {
   const istNow = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
   console.log("📬 /api/sendWish endpoint HIT at:", istNow);
-
+   console.log("🚀 API triggered via GitHub Action at:", new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
   const users = await User.find();
 
   users.forEach(user => {
