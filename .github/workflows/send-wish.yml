@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Wait for Render to wake up and call API
+      - name: Call Wish API
         run: |
-          curl --retry 5 --retry-delay 10 --retry-all-errors -X POST https://birthday-wish-backend.onrender.com/api/sendWish
+          echo "📡 Sending POST to Render backend..."
+          curl -v --retry 5 --retry-delay 10 --retry-all-errors -X POST https://birthday-wish-backend.onrender.com/api/sendWish
