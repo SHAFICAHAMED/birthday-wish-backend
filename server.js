@@ -119,16 +119,19 @@ Your Shafic 🎉
 });
 
 app.post('/api/sendWish', async (req, res) => {
-  console.log("📬 /api/sendWish endpoint HIT at:", new Date().toLocaleString());
+  const istNow = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+  console.log("📬 /api/sendWish endpoint HIT at:", istNow);
 
-  const today = new Date();
   const users = await User.find();
 
   users.forEach(user => {
     const birthDate = new Date(user.birthday);
     console.log("Checking user:", user.name, "-", birthDate);
 
-    if (birthDate.getDate() === today.getDate() && birthDate.getMonth() === today.getMonth()) {
+    if (
+      birthDate.getDate() === istNow.getDate() &&
+      birthDate.getMonth() === istNow.getMonth()
+    ) {
       const mailOptions = {
         from: process.env.EMAIL_USER,
         to: user.email,
