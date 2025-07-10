@@ -11,4 +11,4 @@ jobs:
     steps:
       - name: Call Wish API
         run: |
-          curl -X POST https://birthday-wish-backend.onrender.com
+          curl -X POST https://birthday-wish-backend.onrender.com/api/sendWish
