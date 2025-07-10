@@ -1,0 +1,14 @@
+name: Send Daily Wish
+
+on:
+  schedule:
+    - cron: '30 18 * * *'  # This is 12:00 AM IST (UTC+5:30)
+
+jobs:
+  sendWish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Call Wish API
+        run: |
+          curl -X POST https://your-deployed-url.com/api/sendWish
