@@ -3,13 +3,18 @@ name: Send Daily Wish
 on:
   schedule:
     - cron: '* * * * *'  # Every minute (for testing)
-  workflow_dispatch:
+  workflow_dispatch:     # Manual trigger option
 
 jobs:
   sendWish:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Wake up Render
+        run: |
+          echo "🌅 Waking up backend..."
+          curl -s https://birthday-wish-backend.onrender.com/
+
       - name: Call Wish API
         run: |
           echo "📡 Sending POST to Render backend..."
