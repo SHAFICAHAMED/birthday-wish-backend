@@ -2,7 +2,7 @@ name: Send Daily Wish
 
 on:
   schedule:
-    - cron: '*/1 * * * *'     # Every minute (testing)
+    - cron: '30 18 * * *'     # Every minute (testing)
   workflow_dispatch:
 
 jobs:
