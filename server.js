@@ -18,7 +18,7 @@ const app = express();
 
 app.use(cors({
 
-origin: ['http://localhost:4200', 'https://poetic-kashata-afaf70.netlify.app'],
+origin: ['http://localhost:4200', 'https://poetic-kashata-afaf70.netlify.app','https://projectwish.netlify.app'],
 
 credentials: true // optional: only if you use cookies or auth headers
 
