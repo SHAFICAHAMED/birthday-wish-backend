@@ -98,25 +98,25 @@ service: 'gmail', auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_
 // Cron Job: every day at 12 AM
 
 
-cron.schedule('30 18 * * *', async () => {
-console.log("Cron running at:", new Date().toLocaleString());
-const today = new Date(); const users = await User.find(); users.forEach(user => { const birthDate = new Date(user.birthday); if (birthDate.getDate() === today.getDate() && birthDate.getMonth() === today.getMonth()) { const mailOptions = { from: process.env.EMAIL_USER, to: user.email, subject: '🎉 Wishing You the Happiest Birthday!!', text: `Dear ${user.name},\n 
+// cron.schedule('30 18 * * *', async () => {
+// console.log("Cron running at:", new Date().toLocaleString());
+// const today = new Date(); const users = await User.find(); users.forEach(user => { const birthDate = new Date(user.birthday); if (birthDate.getDate() === today.getDate() && birthDate.getMonth() === today.getMonth()) { const mailOptions = { from: process.env.EMAIL_USER, to: user.email, subject: '🎉 Wishing You the Happiest Birthday!!', text: `Dear ${user.name},\n 
 
-Wishing you a day filled with love, laughter, and everything that makes you smile. 🎂✨
+// Wishing you a day filled with love, laughter, and everything that makes you smile. 🎂✨
 
-May your birthday be as amazing as you are, and may the year ahead bring you endless joy, success, and beautiful memories. 💫
+// May your birthday be as amazing as you are, and may the year ahead bring you endless joy, success, and beautiful memories. 💫
 
-You’re not just a year older, but a year wiser and more wonderful! 💖
+// You’re not just a year older, but a year wiser and more wonderful! 💖
 
-Have a fantastic birthday celebration! 🎈🎁
+// Have a fantastic birthday celebration! 🎈🎁
 
-With warm wishes,
+// With warm wishes,
 
-Your Shafic 🎉
+// Your Shafic 🎉
 
-`, }; transporter.sendMail(mailOptions, (error, info) => { if (error) console.log("❌ Email error:", error); else console.log("✅ Email sent:", info.response,user.name); }); } }); 
+// `, }; transporter.sendMail(mailOptions, (error, info) => { if (error) console.log("❌ Email error:", error); else console.log("✅ Email sent:", info.response,user.name); }); } }); 
 
-});
+// });
 
 app.post('/api/sendWish', async (req, res) => {
   const istNow = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
